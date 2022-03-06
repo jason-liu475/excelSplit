@@ -44,11 +44,14 @@ public class ExcelSplitController {
 				List<String> customerNames = new ArrayList<>();
 				for (int i = 0; i < customerData.size(); i++) {
 					List<Object> customerLine = customerData.get(i);
-					String customerName = customerLine.get(0).toString();
+					String customerName = customerLine.get(0).toString().trim();
 					if(ObjectUtils.isEmpty(customerName)){
 						break;
 					}
-					customerNames.add(customerName.trim());
+					if(Objects.equals(customerName,"客户名称")){
+						continue;
+					}
+					customerNames.add(customerName);
 				}
 				return copyAndMerge(prefix,customerNames,filePath);
 			}
